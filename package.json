@@ -15,7 +15,7 @@
     "db:seed": "node scripts/seed.js",
     "post-reset": "node scripts/check-after-reset.js",
     "seed:all": "npm run seed:products && npm run seed:admin",
-    "build": "tsc",
+    "build": "prisma generate && prisma migrate deploy && tsc",
     "restore-admin": "node scripts/restore-admin.js"
   },
   "dependencies": {
