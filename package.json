@@ -1,0 +1,46 @@
+{
+  "name": "tutty-pijamas-backend",
+  "version": "1.0.0",
+  "prisma": {
+    "seed": "npm run seed:all"
+  },
+  "scripts": {
+    "dev": "ts-node src/server.ts",
+    "generate": "prisma generate",
+    "start": "node dist/index.js",
+    "migrate": "prisma migrate dev",
+    "studio": "prisma studio",
+    "seed:products": "ts-node prisma/seed.ts",
+    "seed:admin": "ts-node src/scripts/seedAdmin.ts",
+    "db:seed": "node scripts/seed.js",
+    "post-reset": "node scripts/check-after-reset.js",
+    "seed:all": "npm run seed:products && npm run seed:admin",
+    "build": "tsc",
+    "restore-admin": "node scripts/restore-admin.js"
+  },
+  "dependencies": {
+    "@prisma/client": "4.16.2",
+    "axios": "^1.4.0",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mercadopago": "^2.5.3",
+    "multer": "^2.0.1",
+    "nodemailer": "^6.9.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.0",
+    "@types/jwt-decode": "^2.2.1",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^20.19.5",
+    "@types/nodemailer": "^6.4.7",
+    "prisma": "4.16.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.1.3"
+  }
+}

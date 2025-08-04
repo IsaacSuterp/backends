@@ -1,0 +1,57 @@
+{
+  "compilerOptions": {
+    /* ==============================
+     * Linguagem e Ambiente
+     * ============================== */
+    "target": "ES2020",                    /* Versão do JS emitido */
+    "lib": ["ES2020"],                     /* Inclui apenas ES2020 (sem DOM) */
+
+    /* ==============================
+     * Módulos e Resolução
+     * ============================== */
+    "module": "CommonJS",                  /* Formato de módulo para Node.js */
+    "moduleResolution": "Node",            /* Resolução de módulos estilo Node */
+    "rootDir": "./src",                    /* Raiz dos fontes */
+    "outDir": "./dist",                    /* Saída compilada */
+
+    /* ==============================
+     * Emissão de Código e Mapas de Fonte
+     * ============================== */
+    "sourceMap": true,                     /* Gera sourcemaps para debug */
+    "noEmitOnError": true,                 /* Não emite se houver erros de tipo */
+
+    /* ==============================
+     * Interoperabilidade
+     * ============================== */
+    "esModuleInterop": true,               /* Import compatível com CommonJS */
+    "forceConsistentCasingInFileNames": true, /* Força consistência de maiúsculas/minúsculas */
+
+    /* ==============================
+     * Verificação de Tipos
+     * ============================== */
+    "strict": true,                        /* Habilita todas as checagens estritas */
+    "noImplicitAny": true,                 /* Impede any implícito */
+    "strictNullChecks": true,              /* Null e undefined estritos */
+    "skipLibCheck": true,                  /* Pula verificação em .d.ts de libs */
+
+    /* ==============================
+     * Tipos Globais (Node.js)
+     * ============================== */
+    "types": ["node"],                     /* Apenas tipos do Node.js */
+    "typeRoots": ["./node_modules/@types"], /* Onde buscar definições de tipo */
+
+    /* ==============================
+     * Build Incremental
+     * ============================== */
+    "incremental": true,                   /* Habilita compilação incremental */
+    "tsBuildInfoFile": "./.tsbuildinfo"    /* Arquivo de metadados incremental */
+  },
+  "include": [
+    "src/**/*",                            /* Compila todos os TS/JS em src */
+    "src/scripts/**/*"                     /* Inclui scripts de seed e automações */
+  ],
+  "exclude": [
+    "node_modules",                        /* Exclui dependências */
+    "dist"                                 /* Exclui saída compilada */
+  ]
+}
