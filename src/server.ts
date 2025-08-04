@@ -84,7 +84,14 @@ async function testEmailConfiguration() {
 }
 
 // ─── Express setup ─────────────────────────────────────────────────────────
-app.use(cors())
+app.use(cors({
+  origin: [
+    'https://tuttypijamas.com',                    // HostGator
+    'https://www.tuttypijamas.com',               // HostGator com www
+    'http://localhost:3000',                     // Local
+    'http://localhost:5173'                      // Vite local
+  ]
+}))
 app.use(express.json())
 app.use("/images", express.static(path.join(__dirname, "../public/images")))
 
