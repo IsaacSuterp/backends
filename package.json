@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "ts-node src/server.ts",
     "generate": "prisma generate",
-    "start": "prisma migrate deploy && node dist/server.js",
+    "start": "prisma db push && node dist/server.js",
     "migrate": "prisma migrate dev",
     "studio": "prisma studio",
     "seed:products": "ts-node prisma/seed.ts",
