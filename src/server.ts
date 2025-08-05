@@ -347,9 +347,9 @@ const shippingData = {
   products: [
     {
       id: "1",
-      width: 30,  // cm - largura da embalagem padrão
-      height: 13, // cm - altura da embalagem padrão  
-      length: 35, // cm - comprimento da embalagem padrão
+      width: 30,  // ✅ 30cm de largura (correto)
+      height: 13, // ✅ 13cm de altura (correto)  
+      length: 35, // ✅ 35cm de comprimento (correto)
       weight: Math.max(totalWeight, 0.1), // peso total ou mínimo 0.1kg
       insurance_value: totalValue, // valor total para seguro
       quantity: 1, // sempre 1 porque o peso já considera todas as quantidades
