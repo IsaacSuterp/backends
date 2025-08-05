@@ -118,6 +118,31 @@ app.post("/api/create-admin", async (req, res) => {
   }
 })
 
+// Endpoint para verificar dados do admin
+app.get("/api/debug-admin", async (req, res) => {
+  try {
+    const admin = await prisma.user.findUnique({ 
+      where: { email: "sarahmarry.loja@gmail.com" } 
+    })
+    
+    if (!admin) {
+      return res.json({ found: false, message: "Admin não encontrado" })
+    }
+    
+    res.json({ 
+      found: true,
+      admin: {
+        id: admin.id,
+        name: admin.name,
+        email: admin.email,
+        role: admin.role,
+        hasPassword: !!admin.passwordHash
+      }
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
 
 app.use(express.json())
 app.use("/images", express.static(path.join(__dirname, "../public/images")))
