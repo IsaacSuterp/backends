@@ -26,7 +26,6 @@ model Product {
   description String
   createdAt   DateTime    @default(now())
   orderItems  OrderItem[]
-  active      Boolean @default(true)
 }
 
 model Order {
@@ -57,6 +56,10 @@ model OrderItem {
   createdAt DateTime @default(now())
   orderId   Int
   productId Int
-  product   Product  @relation(fields: [productId], references: [id])
+  
+  //edit-start
+  // ADICIONADO onDelete: Cascade aqui ↓
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  //edit-end
   order     Order    @relation(fields: [orderId], references: [id])
 }
