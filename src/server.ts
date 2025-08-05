@@ -266,16 +266,20 @@ app.delete("/api/admin/products/:id", authenticateJWT, requireAdmin, async (req,
   try {
     const id = Number(req.params.id)
     
-    // Ao invés de deletar, marcar como inativo
-    await prisma.product.update({
-      where: { id },
-      data: { active: false }
+    // Agora vai deletar o produto E todos os OrderItems relacionados automaticamente
+    await prisma.product.delete({ 
+      where: { id } 
     })
     
     res.status(204).send()
   } catch (error: any) {
-    console.error("Erro ao desativar produto:", error)
-    res.status(500).json({ error: "Erro ao desativar produto" })
+    console.error("Erro ao deletar produto:", error)
+    
+    if (error.code === 'P2025') {
+      res.status(404).json({ error: "Produto não encontrado" })
+    } else {
+      res.status(500).json({ error: "Erro ao deletar produto" })
+    }
   }
 })
 
