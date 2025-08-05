@@ -339,7 +339,7 @@ const totalValue = items.reduce((total: number, item: any) => {
 // Dados para a API da Melhor Envio
 const shippingData = {
   from: {
-    postal_code: STORE_CEP || "01310-100",
+    postal_code: STORE_CEP || "89165-710",
   },
   to: {
     postal_code: cep.replace(/\D/g, ""),
