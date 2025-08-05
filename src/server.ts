@@ -86,8 +86,8 @@ async function testEmailConfiguration() {
 // ─── Express setup ─────────────────────────────────────────────────────────
 app.use(cors({
   origin: [
-    'https://tuttypijamas.com',                    // HostGator
-    'https://www.tuttypijamas.com',               // HostGator com www
+    'https://tuttypijamas.com.br',                    // HostGator
+    'https://www.tuttypijamas.com.br',               // HostGator com www
     'https://backends-production-fb81.up.railway.app', // Railway backend (+ https://)
     'http://localhost:3000',                     // Local
     'http://localhost:4001',                     // Backend local
