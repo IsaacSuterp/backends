@@ -15,25 +15,6 @@ const app = express()
 
 // ─── Environment variables ────────────────────────────────────────────────
 
-app.post("/api/create-admin", async (req, res) => {
-  try {
-    const hash = await bcrypt.hash("041220marry", 10)
-    const admin = await prisma.user.create({
-      data: { 
-        name: "Administrador Tutty", 
-        email: "sarahmarry.loja@gmail.com", 
-        passwordHash: hash, 
-        role: "admin" 
-      },
-    })
-    res.json({ success: true, admin: { id: admin.id, email: admin.email } })
-  } catch (e: any) {
-    if (e.code === "P2002") {
-      return res.json({ message: "Admin já existe" })
-    }
-    res.status(500).json({ error: e.message })
-  }
-})
 
 const {
   DATABASE_URL,
@@ -116,6 +97,28 @@ app.use(cors({
   ],
   credentials: true
 }))
+
+app.post("/api/create-admin", async (req, res) => {
+  try {
+    const hash = await bcrypt.hash("041220marry", 10)
+    const admin = await prisma.user.create({
+      data: { 
+        name: "Administrador Tutty", 
+        email: "sarahmarry.loja@gmail.com", 
+        passwordHash: hash, 
+        role: "admin" 
+      },
+    })
+    res.json({ success: true, admin: { id: admin.id, email: admin.email } })
+  } catch (e: any) {
+    if (e.code === "P2002") {
+      return res.json({ message: "Admin já existe" })
+    }
+    res.status(500).json({ error: e.message })
+  }
+})
+
+
 app.use(express.json())
 app.use("/images", express.static(path.join(__dirname, "../public/images")))
 
