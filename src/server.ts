@@ -139,8 +139,8 @@ app.get("/api/debug-admin", async (req, res) => {
         hasPassword: !!admin.passwordHash
       }
     })
-  } catch (error) {
-    res.status(500).json({ error: error.message })
+  } catch (error: any) {
+  res.status(500).json({ error: error.message })
   }
 })
 
