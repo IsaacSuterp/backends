@@ -263,9 +263,20 @@ app.put("/api/admin/products/:id", authenticateJWT, requireAdmin, upload.single(
 })
 
 app.delete("/api/admin/products/:id", authenticateJWT, requireAdmin, async (req, res) => {
-  const id = Number(req.params.id)
-  await prisma.product.delete({ where: { id } })
-  res.status(204).send()
+  try {
+    const id = Number(req.params.id)
+    
+    // Ao invés de deletar, marcar como inativo
+    await prisma.product.update({
+      where: { id },
+      data: { active: false }
+    })
+    
+    res.status(204).send()
+  } catch (error: any) {
+    console.error("Erro ao desativar produto:", error)
+    res.status(500).json({ error: "Erro ao desativar produto" })
+  }
 })
 
 // ─── SHIPPING ROUTES (UPDATED) ──────────────────────────────────────────────
