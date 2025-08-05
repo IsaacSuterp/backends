@@ -327,38 +327,42 @@ app.post("/api/shipping/calculate", async (req, res) => {
       return fallbackShippingCalculation(cep, res)
     }
 
-    // Calcular peso total e valor total
     const totalWeight = items.reduce((total: number, item: any) => {
-      const itemWeight = item.weight || 0.5 // kg
-      return total + itemWeight * item.quantity
-    }, 0)
+  const itemWeight = item.weight || 0.5 // kg por unidade
+  return total + itemWeight * item.quantity
+}, 0)
 
-    const totalValue = items.reduce((total: number, item: any) => {
-      return total + item.price * item.quantity
-    }, 0)
+const totalValue = items.reduce((total: number, item: any) => {
+  return total + item.price * item.quantity
+}, 0)
 
-    // Dados para a API da Melhor Envio
-    const shippingData = {
-      from: {
-        postal_code: STORE_CEP || "01310-100",
-      },
-      to: {
-        postal_code: cep.replace(/\D/g, ""),
-      },
-      products: [
-        {
-          id: "1",
-          width: 20, // cm - ajuste conforme seus produtos
-          height: 10, // cm
-          length: 30, // cm
-          weight: Math.max(totalWeight, 0.1), // mínimo 0.1kg
-          insurance_value: totalValue,
-          quantity: 1,
-        },
-      ],
-    }
+// Dados para a API da Melhor Envio
+const shippingData = {
+  from: {
+    postal_code: STORE_CEP || "01310-100",
+  },
+  to: {
+    postal_code: cep.replace(/\D/g, ""),
+  },
+  products: [
+    {
+      id: "1",
+      width: 30,  // cm - largura da embalagem padrão
+      height: 13, // cm - altura da embalagem padrão  
+      length: 35, // cm - comprimento da embalagem padrão
+      weight: Math.max(totalWeight, 0.1), // peso total ou mínimo 0.1kg
+      insurance_value: totalValue, // valor total para seguro
+      quantity: 1, // sempre 1 porque o peso já considera todas as quantidades
+    },
+  ],
+}
 
-    console.log("Calculando frete para:", { cep, totalWeight, totalValue })
+console.log("Calculando frete para:", { 
+  cep, 
+  totalWeight: `${totalWeight}kg`, 
+  totalValue: `R$ ${totalValue.toFixed(2)}`,
+  items: items.length 
+})
 
     // Fazer requisição para a API da Melhor Envio
     const response = await fetch("https://melhorenvio.com.br/api/v2/me/shipment/calculate", {
