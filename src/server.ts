@@ -1038,16 +1038,22 @@ app.post("/api/mp-webhook", (_req, res) => {
 const PORT = Number(process.env.PORT) || 4001
 
 app.listen(PORT, async () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`)
+  console.log(`🚀 Server running on port ${PORT}`)
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`)
+  console.log(`🔗 Railway URL: ${process.env.RAILWAY_PUBLIC_DOMAIN || 'Not set'}`)
   console.log(`📦 Melhor Envio configurado: ${MELHOR_ENVIO_TOKEN ? "SIM" : "NÃO"}`)
-  console.log(`🏪 CEP da loja: ${STORE_CEP || "01310-100"}`)
-
+  console.log(`🏪 CEP da loja: ${STORE_CEP || "89165-710"}`)
+  
   // Testar configuração de email na inicialização
   await testEmailConfiguration()
-
   console.log(`📧 Configuração de email:`)
   console.log(`   - Host: ${SMTP_HOST}:${SMTP_PORT}`)
   console.log(`   - User: ${SMTP_USER}`)
   console.log(`   - Notify: ${NOTIFY_EMAIL}`)
-  console.log(`   - Teste: POST http://localhost:${PORT}/api/test-email`)
+  
+  // URL dinâmica baseada no ambiente
+  const baseUrl = process.env.RAILWAY_PUBLIC_DOMAIN 
+    ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}` 
+    : `http://localhost:${PORT}`
+  console.log(`   - Teste: POST ${baseUrl}/api/test-email`)
 })
