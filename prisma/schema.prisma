@@ -26,6 +26,7 @@ model Product {
   description String
   createdAt   DateTime    @default(now())
   orderItems  OrderItem[]
+  active      Boolean @default(true)
 }
 
 model Order {
