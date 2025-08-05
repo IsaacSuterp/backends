@@ -7,8 +7,10 @@
   "scripts": {
     "dev": "ts-node src/server.ts",
     "generate": "prisma generate",
-    "start": "prisma db push && node dist/server.js",
+    "start": "prisma db push --accept-data-loss && node dist/server.js",
     "migrate": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "db:push": "prisma db push --accept-data-loss",
     "studio": "prisma studio",
     "seed:products": "ts-node prisma/seed.ts",
     "seed:admin": "ts-node src/scripts/seedAdmin.ts",
