@@ -147,22 +147,22 @@ app.get("/api/debug-admin", async (req, res) => {
 // Endpoint para corrigir role do admin
 app.post("/api/fix-admin-role", async (req, res) => {
   try {
-    const updated = await prisma.user.update({
+    const updated = await prisma.user.updateMany({
       where: { 
-        email: "sarahmarry.loja@gmail.com",
-        id: 2  // ID específico do admin
+        email: "sarahmarry.loja@gmail.com"
       },
       data: { role: "admin" }
     })
     
+    // Verificar resultado
+    const admin = await prisma.user.findUnique({
+      where: { email: "sarahmarry.loja@gmail.com" }
+    })
+    
     res.json({ 
       message: "Role do admin corrigido com sucesso!",
-      admin: {
-        id: updated.id,
-        name: updated.name,
-        email: updated.email,
-        role: updated.role
-      }
+      updated: updated.count,
+      admin: admin
     })
   } catch (error: any) {
     res.status(500).json({ error: error.message })
