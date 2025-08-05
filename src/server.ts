@@ -88,11 +88,11 @@ app.use(cors({
   origin: [
     'https://tuttypijamas.com',                    // HostGator
     'https://www.tuttypijamas.com',               // HostGator com www
-    'backends-production-fb81.up.railway.app',
+    'https://backends-production-fb81.up.railway.app', // Railway backend (+ https://)
     'http://localhost:3000',                     // Local
-    'http://localhost:4001',
+    'http://localhost:4001',                     // Backend local
     'http://localhost:5173'                      // Vite local
-  ]
+  ],
   credentials: true
 }))
 app.use(express.json())
